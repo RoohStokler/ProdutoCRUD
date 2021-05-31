@@ -5,6 +5,8 @@
  */
 package Janelas;
 
+import BD.Conexao;
+
 /**
  *
  * @author Stokler
@@ -52,16 +54,15 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 19)); // NOI18N
         jLabel3.setText("Quantidade:");
 
-        jTQuantidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTQuantidadeActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 19)); // NOI18N
         jLabel4.setText("Valor:");
 
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
         jBAlterar.setText("Alterar");
 
@@ -143,9 +144,9 @@ public class CadastroProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTQuantidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTQuantidadeActionPerformed
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        
+    }//GEN-LAST:event_jBCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
