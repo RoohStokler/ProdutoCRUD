@@ -167,22 +167,28 @@ public class CadastroProduto extends javax.swing.JFrame {
         Produto p = new Produto();
 
         try {
-
-            if (jTQuantidade.getText().matches("^[0-9]+$") && jTValor.getText().matches("^[0-9]+$")) {
-                p.setDescricao(jTDescricao.getText());
-                p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
-                p.setValor(Double.parseDouble(jTValor.getText()));
-                modelo.addLinha(p);
-                limpaCampos();
-            } else {
-                if (!(jTQuantidade.getText().matches("^[0-9]+$"))) {
-                    JOptionPane.showMessageDialog(this, "Preencha a quantidade");
-                    jTQuantidade.requestFocus();
-                } else if (!(jTValor.getText().matches("^[0-9]+$"))) {
-                    JOptionPane.showMessageDialog(this, "Preencha o valor");
-                    jTValor.requestFocus();
-                }
-            }
+            p.setDescricao(jTDescricao.getText());
+            p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
+            p.setValor(Double.parseDouble(jTValor.getText().replace(",", ".")));
+            modelo.addLinha(p);
+            limpaCampos();
+            
+            
+//            if (jTQuantidade.getText().matches("^[0-9]+$") && jTValor.getText().matches("^[0-9]+$")) {
+//                p.setDescricao(jTDescricao.getText());
+//                p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
+//                p.setValor(Double.parseDouble(jTValor.getText()));
+//                modelo.addLinha(p);
+//                limpaCampos();
+//            } else {
+//                if (!(jTQuantidade.getText().matches("^[0-9]+$"))) {
+//                    JOptionPane.showMessageDialog(this, "Preencha a quantidade");
+//                    jTQuantidade.requestFocus();
+//                } else if (!(jTValor.getText().matches("^[0-9]+$"))) {
+//                    JOptionPane.showMessageDialog(this, "Preencha o valor");
+//                    jTValor.requestFocus();
+//                }
+//            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Preencha os campos corretamente!");
