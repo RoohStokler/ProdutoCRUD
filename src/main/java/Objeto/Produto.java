@@ -10,9 +10,9 @@ package Objeto;
  * @author Stokler
  */
 public class Produto {
-    
+
     private int id;
-    private String descocao;
+    private String descricao;
     private double valor;
     private int quantidade;
 
@@ -31,17 +31,17 @@ public class Produto {
     }
 
     /**
-     * @return the descocao
+     * @return the descricao
      */
-    public String getDescocao() {
-        return descocao;
+    public String getDescricao() {
+        return descricao;
     }
 
     /**
-     * @param descocao the descocao to set
+     * @param descricao the descricao to set
      */
-    public void setDescocao(String descocao) {
-        this.descocao = descocao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     /**
@@ -71,6 +71,5 @@ public class Produto {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    
-    
+
 }

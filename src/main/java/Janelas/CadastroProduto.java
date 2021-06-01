@@ -6,6 +6,9 @@
 package Janelas;
 
 import BD.Conexao;
+import Modelo.ProdutoTableModel;
+import Objeto.Produto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +16,14 @@ import BD.Conexao;
  */
 public class CadastroProduto extends javax.swing.JFrame {
 
+    ProdutoTableModel modelo = new ProdutoTableModel();
+
     /**
      * Creates new form CadastroProduto
      */
     public CadastroProduto() {
         initComponents();
+        jTProdutos.setModel(modelo);
     }
 
     /**
@@ -67,6 +73,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         jBAlterar.setText("Alterar");
 
         jBRemover.setText("Remover");
+        jBRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRemoverActionPerformed(evt);
+            }
+        });
 
         jTProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,19 +111,18 @@ public class CadastroProduto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBRemover))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTValor))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(jTQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 23, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -145,8 +155,44 @@ public class CadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        
+        Produto p = new Produto();
+
+        try {
+
+            if (jTQuantidade.getText().matches("^[0-9]+$") && jTValor.getText().matches("^[0-9]+$")) {
+                p.setDescricao(jTDescricao.getText());
+                p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
+                p.setValor(Double.parseDouble(jTValor.getText()));
+                modelo.addLinha(p);
+                limpaCampos();
+            } else {
+                if (!(jTQuantidade.getText().matches("^[0-9]+$"))) {
+                    JOptionPane.showMessageDialog(this, "Preencha a quantidade");
+                    jTQuantidade.requestFocus();
+                } else if (!(jTValor.getText().matches("^[0-9]+$"))) {
+                    JOptionPane.showMessageDialog(this, "Preencha o valor");
+                    jTValor.requestFocus();
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Preencha os campos corretamente!");
+        }
     }//GEN-LAST:event_jBCadastrarActionPerformed
+
+    private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
+        if (jTProdutos.getSelectedRow() != -1) {
+            modelo.removeLinha(jTProdutos.getSelectedRow());
+        }
+    }
+
+    public void limpaCampos() {
+        jTDescricao.setText("");
+        jTQuantidade.setText("");
+        jTValor.setText("");
+
+        jTDescricao.requestFocus();
+    }//GEN-LAST:event_jBRemoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,4 +243,8 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextField jTQuantidade;
     private javax.swing.JTextField jTValor;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
