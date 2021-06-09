@@ -5,6 +5,7 @@
  */
 package Janelas;
 
+import DAO.ProdutoDAO;
 import Modelo.ProdutoTableModel;
 import Objeto.Produto;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     public CadastroProduto() {
         initComponents();
         jTProdutos.setModel(modelo);
+        modelo.recarregaTabela();
     }
 
     /**
@@ -165,15 +167,16 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         Produto p = new Produto();
+        ProdutoDAO dao = new ProdutoDAO();
 
         try {
             p.setDescricao(jTDescricao.getText());
             p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
             p.setValor(Double.parseDouble(jTValor.getText().replace(",", ".")));
-            modelo.addLinha(p);
+            dao.create(p);
+            modelo.recarregaTabela();
             limpaCampos();
-            
-            
+
 //            if (jTQuantidade.getText().matches("^[0-9]+$") && jTValor.getText().matches("^[0-9]+$")) {
 //                p.setDescricao(jTDescricao.getText());
 //                p.setQuantidade(Integer.parseInt(jTQuantidade.getText()));
@@ -189,7 +192,6 @@ public class CadastroProduto extends javax.swing.JFrame {
 //                    jTValor.requestFocus();
 //                }
 //            }
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Preencha os campos corretamente!");
         }
@@ -197,7 +199,12 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
         if (jTProdutos.getSelectedRow() != -1) {
-            modelo.removeLinha(jTProdutos.getSelectedRow());
+            Produto p = modelo.pegaDadosLinha(jTProdutos.getSelectedRow());
+            ProdutoDAO dao = new ProdutoDAO();
+            dao.delete(p);
+            limpaCampos();
+            modelo.recarregaTabela();
+            
         }
     }
 
@@ -221,8 +228,14 @@ public class CadastroProduto extends javax.swing.JFrame {
             modelo.setValueAt(jTDescricao.getText(), jTProdutos.getSelectedRow(), 0);
             modelo.setValueAt(jTQuantidade.getText(), jTProdutos.getSelectedRow(), 1);
             modelo.setValueAt(jTValor.getText(), jTProdutos.getSelectedRow(), 2);
+            
+            Produto p = modelo.pegaDadosLinha(jTProdutos.getSelectedRow());
+            ProdutoDAO dao = new ProdutoDAO();
+            dao.update(p);
             limpaCampos();
+            modelo.recarregaTabela();
         }
+                
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     /**
