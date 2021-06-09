@@ -204,7 +204,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             dao.delete(p);
             limpaCampos();
             modelo.recarregaTabela();
-            
+
         }
     }
 
@@ -228,14 +228,14 @@ public class CadastroProduto extends javax.swing.JFrame {
             modelo.setValueAt(jTDescricao.getText(), jTProdutos.getSelectedRow(), 0);
             modelo.setValueAt(jTQuantidade.getText(), jTProdutos.getSelectedRow(), 1);
             modelo.setValueAt(jTValor.getText(), jTProdutos.getSelectedRow(), 2);
-            
+
             Produto p = modelo.pegaDadosLinha(jTProdutos.getSelectedRow());
             ProdutoDAO dao = new ProdutoDAO();
             dao.update(p);
             limpaCampos();
             modelo.recarregaTabela();
         }
-                
+
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     /**
