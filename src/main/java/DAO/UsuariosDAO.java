@@ -152,7 +152,7 @@ public class UsuariosDAO {
                 us.setNome(rs.getString("nome"));
                 us.setLogin(rs.getString("login"));
                 us.setSenha(rs.getString("senha"));
-                us.setSenha(rs.getString("tipo"));
+                us.setTipo(rs.getString("tipo"));
             }
 
         } catch (SQLException e) {
